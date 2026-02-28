@@ -451,10 +451,18 @@ export default function LLMsPage() {
     document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
 
     // Fetch votes from API
+    // Fetch real votes and merge with seed data as baseline
     fetch("/api/votes")
       .then((res) => res.json())
       .then((data) => {
-        setVoteCounts(data.counts || {});
+        const apiCounts = data.counts || {};
+        const merged: Record<string, { good: number; bad: number }> = {};
+        for (const m of models) {
+          const key = modelKey(m);
+          const api = apiCounts[key] || { good: 0, bad: 0 };
+          merged[key] = { good: m.good + api.good, bad: m.bad + api.bad };
+        }
+        setVoteCounts(merged);
         setUserVotes(data.userVotes || {});
         setVotesLoaded(true);
       })
