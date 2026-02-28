@@ -723,6 +723,16 @@ export default function Home() {
           <div className="header__left">
             <img src="/openclaw.png" alt="OpenClaw" className="header__logo" />
             <span className="header__brand">OpenClaw Rankings</span>
+            <div className="header__dropdown">
+              <button className="header__dropdown-btn">
+                Rankings
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              <div className="header__dropdown-menu">
+                <a href="/" className="header__dropdown-item header__dropdown-item--active">Best Providers</a>
+                <a href="/llms" className="header__dropdown-item">Best LLMs</a>
+              </div>
+            </div>
           </div>
           <div className="header__right">
             <a href="#methodology" className="header__link">Methodology</a>
@@ -886,6 +896,36 @@ export default function Home() {
         .header__link { font-size: 13px; font-weight: 450; color: var(--text-muted); transition: color 0.2s ease; }
         .header__link:hover { color: var(--text); }
         .header__updated { font-size: 12px; color: var(--text-dim); }
+        .header__dropdown { position: relative; }
+        .header__dropdown-btn {
+          display: flex; align-items: center; gap: 5px;
+          font-family: inherit; font-size: 13px; font-weight: 500;
+          color: var(--text-muted); background: var(--bg);
+          border: 1px solid var(--border); border-radius: 8px;
+          padding: 6px 12px; cursor: pointer;
+          transition: all 0.15s ease;
+        }
+        .header__dropdown-btn:hover { color: var(--text); border-color: rgba(0,0,0,0.15); }
+        .header__dropdown-menu {
+          position: absolute; top: calc(100% + 6px); left: 0;
+          background: #fff; border: 1px solid var(--border); border-radius: 10px;
+          padding: 4px; min-width: 160px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+          opacity: 0; visibility: hidden; transform: translateY(-4px);
+          transition: all 0.15s ease; z-index: 100;
+        }
+        .header__dropdown:hover .header__dropdown-menu {
+          opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .header__dropdown-item {
+          display: block; padding: 8px 12px; font-size: 13px; font-weight: 450;
+          color: var(--text-muted); border-radius: 7px;
+          transition: all 0.1s ease; text-decoration: none;
+        }
+        .header__dropdown-item:hover { background: var(--bg-warm); color: var(--text); }
+        .header__dropdown-item--active {
+          color: var(--accent); font-weight: 550;
+        }
 
         /* ── Hero ── */
 
