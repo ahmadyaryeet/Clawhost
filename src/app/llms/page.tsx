@@ -445,7 +445,7 @@ export default function LLMsPage() {
           if (entry.isIntersecting) entry.target.classList.add("is-visible");
         });
       },
-      { threshold: 0.08 }
+      { threshold: 0 }
     );
     document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
 
