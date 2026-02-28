@@ -3,6 +3,39 @@
 import { useState, useEffect } from "react";
 
 /* ═══════════════════════════════════════════════
+   GCLID TRACKING
+   ═══════════════════════════════════════════════ */
+
+function captureGclid(): void {
+  if (typeof window === "undefined") return;
+  const params = new URLSearchParams(window.location.search);
+  const gclid = params.get("gclid");
+  if (gclid) {
+    const expires = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `gclid=${encodeURIComponent(gclid)}; expires=${expires}; path=/; SameSite=Lax`;
+  }
+}
+
+function getGclid(): string | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie.match(/(?:^|; )gclid=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+/** Append stored gclid to any URL */
+function withGclid(url: string): string {
+  const gclid = getGclid();
+  if (!gclid) return url;
+  try {
+    const u = new URL(url);
+    u.searchParams.set("gclid", gclid);
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
+/* ═══════════════════════════════════════════════
    TYPES & DATA
    ═══════════════════════════════════════════════ */
 
@@ -456,7 +489,7 @@ function ProviderCard({ provider, rank, index }: { provider: Provider; rank: num
     // Don't redirect if they clicked a button, link, or the pills toggle
     const target = e.target as HTMLElement;
     if (target.closest("a, button")) return;
-    window.open(provider.url, "_blank", "noopener,noreferrer");
+    window.open(withGclid(provider.url), "_blank", "noopener,noreferrer");
   } : undefined;
 
   return (
@@ -517,7 +550,7 @@ function ProviderCard({ provider, rank, index }: { provider: Provider; rank: num
             <p className="card__tip">
               {provider.tip}{" "}
               {provider.tipUrl && (
-                <a href={provider.tipUrl} target="_blank" rel="noopener noreferrer">
+                <a href={withGclid(provider.tipUrl)} target="_blank" rel="noopener noreferrer">
                   View repo &rarr;
                 </a>
               )}
@@ -528,7 +561,7 @@ function ProviderCard({ provider, rank, index }: { provider: Provider; rank: num
         <div className="card__right">
           <div className="card__price-sub">{provider.priceSubtitle}</div>
           <div className="card__price">{provider.price}</div>
-          <a href={provider.url} target="_blank" rel="noopener noreferrer" className="cta">
+          <a href={withGclid(provider.url)} target="_blank" rel="noopener noreferrer" className="cta">
             Visit &rarr;
           </a>
         </div>
@@ -655,6 +688,8 @@ export default function Home() {
   const [showSubmit, setShowSubmit] = useState(false);
 
   useEffect(() => {
+    captureGclid();
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
