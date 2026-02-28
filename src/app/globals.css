@@ -1,38 +1,93 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #242424;
-  --color-secondary: #6b6b6b;
-  --color-green: #1a8917;
-  --color-border: #e6e6e6;
-  --color-light-bg: #f9f9f9;
-  --color-tag-bg: #f2f2f2;
-  --color-code-bg: #f0f0f0;
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: Menlo, Monaco, "Courier New", monospace;
+  /* ── Accent ── */
+  --accent: #ff6b4a;
+  --accent-light: #ff8a6e;
+  --accent-glow: rgba(255, 107, 74, 0.12);
+  --accent-subtle: rgba(255, 107, 74, 0.06);
+
+  /* ── Backgrounds ── */
+  --bg: #ffffff;
+  --bg-warm: #faf9f7;
+  --bg-surface: #f5f3f0;
+  --bg-elevated: #ffffff;
+
+  /* ── Text ── */
+  --text: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-dim: #b0aaa4;
+
+  /* ── Borders ── */
+  --border: rgba(0, 0, 0, 0.07);
+  --border-light: rgba(0, 0, 0, 0.04);
+  --border-hover: rgba(255, 107, 74, 0.25);
+
+  /* ── Feature pills ── */
+  --pill-green-bg: #f0fdf4;
+  --pill-green-text: #166534;
+  --pill-red-bg: #fef2f2;
+  --pill-red-text: #991b1b;
+  --pill-amber-bg: #fffbeb;
+  --pill-amber-text: #92400e;
+  --pill-manual-bg: #f5f3ff;
+  --pill-manual-text: #5b21b6;
+
+  /* ── Fonts ── */
+  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-heading: var(--font-dm-serif), Georgia, "Times New Roman", serif;
+
+  /* ── Easing ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
   --color-background: #ffffff;
-  --color-foreground: #242424;
+  --color-foreground: #1a1a2e;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: #ffffff;
-  color: var(--color-primary);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-warm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1cdc8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b5b0aa;
 }

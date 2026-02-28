@@ -1,28 +1,78 @@
 import type { Metadata } from "next";
+import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const dmSerif = DM_Serif_Display({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dm-serif",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Best OpenClaw Hosting Providers 2026 | ClawCloud",
+  title: "Best OpenClaw Hosting Providers 2026 (Independently Reviewed)",
   description:
-    "A comprehensive comparison of the best OpenClaw hosting providers in 2026. From managed platforms like ClawCloud to self-hosted options on Hetzner, find the right home for your AI agents.",
+    "Compare the best OpenClaw hosting providers of 2026, independently reviewed on Docker isolation, TLS, uptime, and pricing. Find the right host for your agents.",
+  keywords: [
+    "OpenClaw hosting",
+    "best OpenClaw hosting providers",
+    "OpenClaw hosting 2026",
+    "AI agent hosting",
+    "ClawCloud",
+    "OpenClaw Docker hosting",
+    "OpenClaw self-hosted",
+    "OpenClaw VPS",
+    "OpenClaw rankings",
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  alternates: {
+    canonical:
+      "https://clawcloud.dev/blog/best-openclaw-hosting-providers-2026",
+  },
   openGraph: {
-    title: "Best OpenClaw Hosting Providers 2026 | ClawCloud",
+    title: "Best OpenClaw Hosting Providers 2026 (Independently Reviewed)",
     description:
-      "A comprehensive comparison of the best OpenClaw hosting providers in 2026. From managed platforms like ClawCloud to self-hosted options on Hetzner, find the right home for your AI agents.",
+      "Compare the best OpenClaw hosting providers of 2026, independently reviewed on Docker isolation, TLS, uptime, and pricing. Find the right host for your agents.",
     type: "article",
+    publishedTime: "2026-01-15T00:00:00Z",
+    modifiedTime: "2026-02-25T00:00:00Z",
+    authors: ["OpenClaw Rankings"],
+    tags: ["OpenClaw", "AI Agents", "Cloud Hosting", "DevOps", "Rankings"],
     images: [
       {
-        url: "https://placehold.co/1200x630/f2f2f2/999999?text=Best+OpenClaw+Hosting+2026",
-        width: 1200,
-        height: 630,
+        url: "/openclaw.png",
+        width: 512,
+        height: 512,
+        alt: "OpenClaw Rankings Logo",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Best OpenClaw Hosting Providers 2026 | ClawCloud",
+    card: "summary",
+    title: "Best OpenClaw Hosting Providers 2026 (Independently Reviewed)",
     description:
-      "A comprehensive comparison of the best OpenClaw hosting providers in 2026.",
+      "Compare the best OpenClaw hosting providers of 2026, independently reviewed on Docker isolation, TLS, uptime, and pricing. Find the right host for your agents.",
+    images: ["/openclaw.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
   },
 };
 
@@ -31,8 +81,71 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Best OpenClaw Hosting Providers in 2026",
+    description:
+      "Compare the best OpenClaw hosting providers of 2026, independently reviewed on Docker isolation, TLS, uptime, and pricing. Find the right host for your agents.",
+    image: "/openclaw.png",
+    datePublished: "2026-01-15",
+    dateModified: "2026-02-25",
+    author: {
+      "@type": "Organization",
+      name: "OpenClaw Rankings",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "OpenClaw Rankings",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+    },
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is the best OpenClaw hosting provider in 2026?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "ClawCloud is the best overall OpenClaw hosting provider in 2026. It offers managed Docker isolation per agent, auto-TLS via Caddy, built-in WhatsApp/Telegram/Discord/Slack integrations, and one-click deployment starting at $29/mo.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the cheapest way to host OpenClaw agents?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Self-hosting on a Hetzner VPS is the cheapest option at $27/month for a CX22 instance. Use ClawCloud's open-source repo to automate Docker and Caddy setup.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which OpenClaw hosting providers support WhatsApp and Telegram?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "ClawCloud is the only hosting provider with built-in WhatsApp, Telegram, Discord, and Slack integrations. All other providers require manual webhook configuration.",
+        },
+      },
+    ],
+  };
+
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${dmSerif.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
